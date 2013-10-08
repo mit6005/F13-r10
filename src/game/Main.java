@@ -10,7 +10,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		TournamentExample.Entrant entrant = new TournamentExample.Entrant(5, "Nils");
+	    TournamentExample.Entrant entrant = new TournamentExample.Entrant(5, "Nils");
         Set<String> players = new HashSet<String>();
         players.add("Bryan");
         players.add("Jared");

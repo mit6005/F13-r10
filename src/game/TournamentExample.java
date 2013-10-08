@@ -33,7 +33,7 @@ public class TournamentExample {
         
         @Override
         public boolean equals(Object other) {
-        	if(!(other instanceof Entrant)) {
+            if(!(other instanceof Entrant)) {
                 return false;
             }
             Entrant otherEntrant = (Entrant) other;
@@ -67,8 +67,7 @@ public class TournamentExample {
         
         @Override
         public boolean equals(Object other) {
-        	
-        	if(!(other instanceof Team)) {
+            if(!(other instanceof Team)) {
                 return false;
             }
             Team otherTeam = (Team) other;
