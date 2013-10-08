@@ -1,5 +1,6 @@
 package game;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class TournamentExample {
@@ -7,7 +8,7 @@ public class TournamentExample {
     /**
      * Entrant represents a competitor in some game.
      */
-    public class Entrant {
+    public static class Entrant {
         protected int skill;
         protected String name;
         
@@ -32,19 +33,24 @@ public class TournamentExample {
         
         @Override
         public boolean equals(Object other) {
-            // TODO fill in
+        	if(!(other instanceof Entrant)) {
+                return false;
+            }
+            Entrant otherEntrant = (Entrant) other;
+            return otherEntrant.skill == this.skill && 
+            		otherEntrant.name.equals(this.name);
         }
         
         @Override
         public int hashCode() {
-            // TODO fill in
+        	return this.name.hashCode() + this.skill;
         }
     }
     
     /**
      * Team represents a competitor in some game consisting of many players.
      */
-    public class Team extends Entrant {       
+    public static class Team extends Entrant {       
         private Set<String> playerNames;
         
         public Team(int skill, String name, Set<String> playerNames) {
@@ -61,12 +67,18 @@ public class TournamentExample {
         
         @Override
         public boolean equals(Object other) {
-            // TODO fill in
+            if(!(other instanceof Team)) {
+                return false;
+            }
+            Team otherTeam = (Team) other;
+            return otherTeam.skill == this.skill && otherTeam.name.equals(this.name) &&
+                    otherTeam.playerNames.containsAll(this.playerNames) &&
+                    this.playerNames.containsAll(otherTeam.playerNames);
         }
         
         @Override
         public int hashCode() {
-            // TODO fill in
+            return super.hashCode() + this.playerNames.hashCode();
         }
     }
     
@@ -100,22 +112,28 @@ public class TournamentExample {
         
         @Override
         public Entrant winner() {
-            // TODO fill in
+            return this.entrant;
         }
 
         @Override
         public Set<Entrant> entrants() {
-            // TODO fill in
+            Set<Entrant> entrants = new HashSet<Entrant>();
+            entrants.add(entrant);
+            return entrants;
         }
         
         @Override
         public boolean equals(Object other) {
-            // TODO fill in
+            if (!(other.getClass().equals(getClass()))) {
+                return false;
+            }
+            Bye otherBye = (Bye) other;
+            return entrant.equals(otherBye.entrant);
         }
         
         @Override
         public int hashCode() {
-            // TODO fill in
+            return entrant.hashCode();
         }
     }
     
@@ -134,22 +152,35 @@ public class TournamentExample {
         
         @Override
         public Entrant winner() {
-            // TODO fill in
+            Entrant w1 = t1.winner();
+            Entrant w2 = t2.winner();
+            if (w1.skill() >= w2.skill()) {
+                return w1;
+            } else {
+                return w2;
+            }
         }
 
         @Override
         public Set<Entrant> entrants() {
-            // TODO fill in
+            Set<Entrant> entrants = new HashSet<Entrant>();
+            entrants.addAll(t1.entrants());
+            entrants.addAll(t2.entrants());
+            return entrants;
         }
         
         @Override
         public boolean equals(Object other) {
-            // TODO fill in
+            if (!(other.getClass().equals(getClass()))) {
+                return false;
+            }
+            Game otherGame = (Game) other;
+            return t1.equals(otherGame.t1) && t2.equals(otherGame.t2);
         }
         
         @Override
         public int hashCode() {
-            // TODO fill in
+            return t1.hashCode() + t2.hashCode();
         }
     }
 }
