@@ -67,7 +67,8 @@ public class TournamentExample {
         
         @Override
         public boolean equals(Object other) {
-            if(!(other instanceof Team)) {
+        	
+        	if(!(other instanceof Team)) {
                 return false;
             }
             Team otherTeam = (Team) other;
